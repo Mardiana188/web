@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wasting Awareness | Edukasi & Pencegahan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --cream: #F9F5F0;
+            --taupe: #D8C4B6;
+            --soft-brown: #B5A99E;
+            --warm-gray: #7D7463;
+            --dark-brown: #4A403A;
+            --accent: #A27B5C;
+            --light-accent: #D1B399;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--cream);
+            color: var(--dark-brown);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--dark-brown);
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(rgba(73, 64, 58, 0.8), rgba(73, 64, 58, 0.8)), 
+                        url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: -3rem;
+        }
+        
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            line-height: 1.2;
+        }
+        
+        .header-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent);
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: var(--accent);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--dark-brown);
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin: 0 auto;
+            max-width: 95%;
+            border-radius: 50px;
+            margin-top: 2rem;
+        }
+        
+        .nav-item {
+            margin: 0 0.8rem;
+            padding: 0.7rem 1.2rem;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: var(--dark-brown);
+        }
+        
+        .nav-item.active, .nav-item:hover {
+            background-color: var(--taupe);
+            color: var(--dark-brown);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            position: relative;
+        }
+        
+        section {
+            margin-bottom: 4rem;
+            background-color: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--warm-gray);
+        }
+        
+        /* Cards */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .card {
+            flex: 1 1 300px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 1.8rem;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark-brown);
+        }
+        
+        .card-text {
+            color: var(--warm-gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Calculator */
+        .calculator {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--dark-brown);
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--taupe);
+            border-radius: 8px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(162, 123, 92, 0.2);
+        }
+        
+        .calculate-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .calculate-btn:hover {
+            background-color: var(--light-accent);
+        }
+        
+        #result {
+            margin-top: 2rem;
+            padding: 1.8rem;
+            border-radius: 8px;
+            background-color: var(--cream);
+            display: none;
+            border-left: 4px solid var(--accent);
+        }
+        
+        /* Stats */
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-item {
+            flex: 1 1 150px;
+            background-color: var(--taupe);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+        }
+        
+        /* FAQ */
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid var(--taupe);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            background-color: white;
+            color: var(--dark-brown);
+            padding: 1.2rem 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            background-color: var(--cream);
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .faq-answer-content {
+            padding: 1.5rem 0;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-brown);
+            color: white;
+            text-align: center;
+            padding: 4rem 1.5rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            gap: 1.5rem;
+        }
+        
+        .footer-link {
+            color: var(--taupe);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            color: var(--taupe);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1rem;
+            }
+            
+            .btn-container {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn {
+                margin: 0;
+                width: 100%;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .nav-item {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                margin: 0 0.3rem;
+            }
+            
+            section {
+                padding: 1.8rem;
+            }
+            
+            .card {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <h1>Wasting Awareness</h1>
+            <p class="header-subtitle">Edukasi, Pencegahan, dan Deteksi Dini Gizi Buruk pada Anak</p>
+            <div class="btn-container">
+                <a href="#calculator" class="btn">Cek Status Gizi</a>
+                <a href="#about" class="btn btn-outline">Pelajari Lebih Lanjut</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-item active" onclick="showSection('about')">Tentang</div>
+        <div class="nav-item" onclick="showSection('prevention')">Pencegahan</div>
+        <div class="nav-item" onclick="showSection('calculator')">Kalkulator</div>
+        <div class="nav-item" onclick="showSection('faq')">FAQ</div>
+    </nav>
+    
+    <div class="container">
+        <!-- About Section -->
+        <section id="about" class="visible">
+            <h2>Memahami Wasting</h2>
+            <p>Wasting atau gizi akut adalah kondisi malnutrisi yang ditandai dengan berat badan rendah dibandingkan tinggi badan. Kondisi ini menunjukkan penurunan berat badan yang cepat atau kegagalan untuk menambah berat badan, dan merupakan ancaman serius bagi kesehatan anak.</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">149.000</div>
+                    <div class="stat-label">Kasus di Indonesia</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1 dari 10</div>
+                    <div class="stat-label">Anak Mengalami</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">45%</div>
+                    <div class="stat-label">Dapat Dicegah</div>
+                </div>
+            </div>
+            
+            <div class="card-container">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Gejala Wasting" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Gejala Wasting</h3>
+                        <p class="card-text">Anak terlihat sangat kurus, tulang terlihat jelas, berat badan rendah untuk tinggi badannya, dan mungkin mengalami edema (pembengkakan) pada kaki dan tangan.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Penyebab Wasting" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Penyebab Wasting</h3>
+                        <p class="card-text">Asupan makanan yang tidak mencukupi, penyakit infeksi berulang, sanitasi buruk, kemiskinan, dan kurangnya pengetahuan tentang gizi.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1530035885822-7cdedd0e20e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Dampak Wasting" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Dampak Wasting</h3>
+                        <p class="card-text">Gangguan pertumbuhan fisik dan mental, sistem imun lemah, risiko kematian lebih tinggi, gangguan perkembangan kognitif, dan produktivitas rendah di masa dewasa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Prevention Section -->
+        <section id="prevention">
+            <h2>Pencegahan Wasting</h2>
+            <p>Strategi efektif untuk mencegah wasting pada anak dengan pendekatan berbasis bukti:</p>
+            
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-baby"></i>
+                        </div>
+                        <h3 class="card-title">ASI Eksklusif</h3>
+                        <p class="card-text">Berikan ASI eksklusif selama 6 bulan pertama kehidupan bayi. ASI mengandung semua nutrisi yang dibutuhkan dan antibodi untuk melindungi dari infeksi.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3 class="card-title">MPASI Berkualitas</h3>
+                        <p class="card-text">Setelah 6 bulan, berikan Makanan Pendamping ASI (MPASI) yang kaya nutrisi dengan frekuensi dan jumlah yang cukup sesuai usia anak.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-syringe"></i>
+                        </div>
+                        <h3 class="card-title">Imunisasi Lengkap</h3>
+                        <p class="card-text">Pastikan anak mendapatkan imunisasi lengkap sesuai jadwal untuk mencegah penyakit infeksi yang dapat menyebabkan wasting.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Intervensi Tambahan</h3>
+            <ul style="margin-left: 1.5rem; color: var(--warm-gray);">
+                <li style="margin-bottom: 0.8rem;">Pemantauan pertumbuhan rutin di posyandu</li>
+                <li style="margin-bottom: 0.8rem;">Pemberian suplementasi gizi untuk anak berisiko</li>
+                <li style="margin-bottom: 0.8rem;">Peningkatan akses air bersih dan sanitasi</li>
+                <li style="margin-bottom: 0.8rem;">Edukasi gizi untuk orang tua dan pengasuh</li>
+            </ul>
+        </section>
+        
+        <!-- Calculator Section -->
+        <section id="calculator">
+            <h2>Kalkulator Status Gizi</h2>
+            <p>Gunakan alat ini untuk menilai status gizi anak berdasarkan parameter antropometri:</p>
+            
+            <div class="calculator">
+                <div class="form-group">
+                    <label for="weight"><i class="fas fa-weight"></i> Berat Badan (kg)</label>
+                    <input type="number" id="weight" step="0.1" placeholder="Contoh: 12.5">
+                </div>
+                
+                <div class="form-group">
+                    <label for="height"><i class="fas fa-ruler-vertical"></i> Tinggi Badan (cm)</label>
+                    <input type="number" id="height" placeholder="Contoh: 85">
+                </div>
+                
+                <div class="form-group">
+                    <label for="age"><i class="fas fa-birthday-cake"></i> Usia (bulan)</label>
+                    <input type="number" id="age" placeholder="Contoh: 24">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender"><i class="fas fa-venus-mars"></i> Jenis Kelamin</label>
+                    <select id="gender">
+                        <option value="male">Laki-laki</option>
+                        <option value="female">Perempuan</option>
+                    </select>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateWasting()">
+                    <i class="fas fa-calculator"></i> Hitung Status Gizi
+                </button>
+                
+                <div id="result"></div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Interpretasi Hasil</h3>
+            <p>Standar WHO untuk wasting (berat badan terhadap tinggi badan):</p>
+            <ul style="margin-left: 1.5rem; color: var(--warm-gray);">
+                <li style="margin-bottom: 0.5rem;"><strong style="color: var(--dark-brown);">Normal:</strong> Z-score -2 SD sampai +2 SD</li>
+                <li style="margin-bottom: 0.5rem;"><strong style="color: var(--dark-brown);">Wasting ringan:</strong> Z-score -3 SD sampai < -2 SD</li>
+                <li style="margin-bottom: 0.5rem;"><strong style="color: var(--dark-brown);">Wasting berat:</strong> Z-score < -3 SD</li>
+            </ul>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section id="faq">
+            <h2>Pertanyaan Umum</h2>
+            <p>Temukan jawaban untuk pertanyaan paling umum tentang wasting:</p>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Apa bedanya wasting dengan stunting?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Wasting dan stunting adalah dua bentuk malnutrisi yang berbeda:</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--warm-gray);">
+                            <li style="margin-bottom: 0.5rem;"><strong>Wasting</strong> adalah berat badan rendah untuk tinggi badan (acute malnutrition), menunjukkan penurunan berat badan baru-baru ini atau kegagalan menambah berat badan.</li>
+                            <li style="margin-bottom: 0.5rem;"><strong>Stunting</strong> adalah tinggi badan rendah untuk usia (chronic malnutrition), menunjukkan kekurangan gizi jangka panjang.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Berapa lama waktu pemulihan wasting?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Waktu pemulihan tergantung pada:</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--warm-gray);">
+                            <li style="margin-bottom: 0.5rem;">Tingkat keparahan wasting</li>
+                            <li style="margin-bottom: 0.5rem;">Adanya komplikasi medis</li>
+                            <li style="margin-bottom: 0.5rem;">Kepatuhan terhadap terapi</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">Dengan penanganan tepat, wasting ringan-sedang biasanya membutuhkan 2-3 bulan untuk pulih.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Apakah wasting bisa dicegah sepenuhnya?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Banyak kasus wasting dapat dicegah dengan:</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--warm-gray);">
+                            <li style="margin-bottom: 0.5rem;">Praktik pemberian makan optimal</li>
+                            <li style="margin-bottom: 0.5rem;">Imunisasi lengkap</li>
+                            <li style="margin-bottom: 0.5rem;">Pemantauan pertumbuhan rutin</li>
+                            <li style="margin-bottom: 0.5rem;">Sanitasi dan higiene yang baik</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <h3>Wasting Awareness</h3>
+            <p>Mari bersama cegah wasting untuk generasi yang lebih sehat dan produktif</p>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">Tentang Kami</a>
+                <a href="#" class="footer-link">Kontak</a>
+                <a href="#" class="footer-link">Sumber Daya</a>
+                <a href="#" class="footer-link">Privasi</a>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <p class="copyright">© 2025 Wasting Awareness. By Mardiana.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Show section based on navigation click
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('visible');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('visible');
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Scroll to section
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // Toggle FAQ item
+        function toggleFAQ(question) {
+            const faqItem = question.parentElement;
+            faqItem.classList.toggle('active');
+        }
+        
+        // Calculate wasting
+        function calculateWasting() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseInt(document.getElementById('height').value);
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            
+            if (!weight || !height || !age) {
+                alert('Harap isi semua field dengan benar!');
+                return;
+            }
+            
+            // Simplified calculation - in real app use WHO growth standards
+            const heightInM = height / 100;
+            const bmi = weight / (heightInM * heightInM);
+            
+            // More realistic z-score calculation (still simplified)
+            let zScore;
+            if (age <= 24) {
+                // For children under 2, weight-for-height
+                const median = 10 + (age * 0.5); // Simplified median
+                zScore = (weight - median) / (median * 0.1);
+            } else {
+                // For older children, BMI-for-age
+                const medianBMI = 16 + (age * 0.05); // Simplified median
+                zScore = (bmi - medianBMI) / (medianBMI * 0.1);
+            }
+            
+            // Determine wasting status
+            let status, message, color;
+            if (zScore >= -2) {
+                status = 'Normal';
+                message = 'Anak Anda memiliki status gizi normal. Pertahankan pola makan sehat dan pantau pertumbuhan secara rutin.';
+                color = '#10b981';
+            } else if (zScore >= -3) {
+                status = 'Wasting Ringan';
+                message = 'Anak Anda menunjukkan tanda-tanda wasting ringan. Segera konsultasikan dengan tenaga kesehatan untuk evaluasi lebih lanjut.';
+                color = '#f59e0b';
+            } else {
+                status = 'Wasting Berat';
+                message = 'Anak Anda mengalami wasting berat. Ini kondisi serius yang membutuhkan penanganan segera. Segera bawa ke fasilitas kesehatan.';
+                color = '#ef4444';
+            }
+            
+            // Display result
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.style.borderLeftColor = color;
+            resultDiv.innerHTML = `
+                <h3 style="color: ${color}; margin-bottom: 1rem;">
+                    <i class="fas fa-${status === 'Normal' ? 'check-circle' : status === 'Wasting Ringan' ? 'exclamation-triangle' : 'exclamation-circle'}"></i>
+                    ${status}
+                </h3>
+                <p><strong>Z-score:</strong> ${zScore.toFixed(2)}</p>
+                <p><strong>BMI:</strong> ${bmi.toFixed(1)}</p>
+                <p style="margin-top: 1rem;">${message}</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #64748b;">
+                    <i class="fas fa-info-circle"></i> Hasil ini merupakan perkiraan. Untuk diagnosis pasti, konsultasikan dengan tenaga kesehatan.
+                </p>
+            `;
+        }
+        
+        // Animate elements when scrolling
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
